@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/KevKibe/memvectordb-python-client"
 
 packages = [
-    { include = "memvectordb-python" },
+    { include = "memvectordb" },
 ]
 
 [tool.poetry.dependencies]
