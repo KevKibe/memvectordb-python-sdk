@@ -2,7 +2,7 @@ import requests
 from typing import Dict, Any, List
 
 
-class Collection:
+class MemVectorDB:
     def __init__(
         self, 
         base_url
