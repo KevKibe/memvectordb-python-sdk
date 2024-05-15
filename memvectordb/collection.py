@@ -115,7 +115,7 @@ class MemVectorDB:
         """
         vector_id = 0
         vector_id += 1
-        print(vector_id.to_string())
+        str(vector_id)
         embedding  = {
             "id" : f"{vector_id}",
             "vector" : f"{vector}", 
