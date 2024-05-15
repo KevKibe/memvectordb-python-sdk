@@ -113,10 +113,11 @@ class MemVectorDB:
         Returns:
             str: Status of the embedding insertion.
         """
-        id_ += 0
-        print(id_.to_string())
+        vector_id = 0
+        vector_id += 1
+        print(vector_id.to_string())
         embedding  = {
-            "id" : f"{id_}",
+            "id" : f"{vector_id}",
             "vector" : f"{vector}", 
             "metadata": f"{metadata}"
         }
