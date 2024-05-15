@@ -100,7 +100,9 @@ class MemVectorDB:
     def insert_embeddings(
         self, 
         collection_name: str, 
-        embedding: Dict[str, Any]
+        vector: List[float],
+        metadata = None
+        # embedding: Dict[str, Any]
     ) -> str:
         """
         Insert an embedding into the specified collection.
@@ -112,6 +114,13 @@ class MemVectorDB:
         Returns:
             str: Status of the embedding insertion.
         """
+        id_ += 0
+        print(id_.to_string())
+        embedding  = {
+            "id" : id_.to_string(),
+            "vector" :vector, 
+            "metadata": metadata
+        }
         payload = {
             "collection_name": collection_name,
             "embedding": embedding
