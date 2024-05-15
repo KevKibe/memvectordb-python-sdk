@@ -1,5 +1,5 @@
 import requests
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 
 class MemVectorDB:
@@ -101,8 +101,7 @@ class MemVectorDB:
         self, 
         collection_name: str, 
         vector: List[float],
-        metadata = None
-        # embedding: Dict[str, Any]
+        metadata: Optional[dict] = None
     ) -> str:
         """
         Insert an embedding into the specified collection.
@@ -117,9 +116,9 @@ class MemVectorDB:
         id_ += 0
         print(id_.to_string())
         embedding  = {
-            "id" : id_.to_string(),
-            "vector" :vector, 
-            "metadata": metadata
+            "id" : f"{id_}",
+            "vector" : f"{vector}", 
+            "metadata": f"{metadata}"
         }
         payload = {
             "collection_name": collection_name,
