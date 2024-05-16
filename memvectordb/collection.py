@@ -100,26 +100,25 @@ class MemVectorDB:
     def insert_embeddings(
         self, 
         collection_name: str, 
+        vector_id: int,
         vector: List[float],
-        metadata: Optional[dict] = None
+        metadata: Optional[Dict] = None
     ) -> str:
         """
         Insert an embedding into the specified collection.
 
         Args:
             collection_name (str): The name of the collection.
-            embedding (dict): The embedding data to insert.
+            vector (List[float]): The embedding vector to insert.
+            metadata (Optional[Dict], optional): Metadata associated with the embedding. Defaults to None.
 
         Returns:
             str: Status of the embedding insertion.
         """
-        vector_id = 0
-        vector_id += 1
-        str(vector_id)
-        embedding  = {
-            "id" : f"{vector_id}",
-            "vector" : f"{vector}", 
-            "metadata": f"{metadata}"
+        embedding = {
+            "id": str(vector_id),
+            "vector": vector,
+            "metadata": metadata
         }
         payload = {
             "collection_name": collection_name,
@@ -132,7 +131,7 @@ class MemVectorDB:
         if response.status_code == 200:
             return response_data
         else:
-            return response_data
+            raise Exception(f"Failed to insert embedding: {response.status_code}")
         
     def update_collection(
         self, 
