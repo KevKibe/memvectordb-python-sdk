@@ -132,7 +132,7 @@ class MemVectorDB:
         if response.status_code == 200:
             return response_data
         else:
-            raise Exception(f"Failed to insert embedding: {response.status_code}")
+            return response_data
         
     def update_collection(
         self, 
