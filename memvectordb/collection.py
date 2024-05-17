@@ -105,15 +105,16 @@ class MemVectorDB:
         metadata: Optional[Dict] = None
     ) -> str:
         """
-        Insert an embedding into the specified collection.
+        This method inserts a single embedding into a specified collection.
 
         Args:
-            collection_name (str): The name of the collection.
-            vector (List[float]): The embedding vector to insert.
-            metadata (Optional[Dict], optional): Metadata associated with the embedding. Defaults to None.
+            collection_name (str): The name of the collection to insert the embedding into.
+            vector_id (int): The unique identifier for the vector.
+            vector (List[float]): The vector to be inserted.
+            metadata (Optional[Dict]): Additional metadata associated with the vector.
 
         Returns:
-            str: Status of the embedding insertion.
+            str: Status of the insertion operation.
         """
         embedding = {
             "id": str(vector_id),
@@ -141,14 +142,16 @@ class MemVectorDB:
         metadata: Optional[List[Dict]] = None
     ) -> str:
         """
-        Update a collection with new embeddings.
+        This method inserts a batch of embeddings into a specified collection.
 
         Args:
-            collection_name (str): The name of the collection to update.
-            embeddings (List[Dict[str, Any]]): A list of dictionaries representing embeddings.
+            collection_name (str): The name of the collection to insert the embeddings into.
+            vector_id (int): The unique identifier for the vector.
+            vector (List[float]): The vector to be inserted.
+            metadata (Optional[List[Dict]]): Additional metadata associated with the vector.
 
         Returns:
-            str: Status of the update operation.
+            str: Status of the insertion operation.
         """
         embeddings = {
             "id": str(vector_id),
