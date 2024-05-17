@@ -1,5 +1,6 @@
 import unittest
 from memvectordb.collection import MemVectorDB
+from json.decoder import JSONDecodeError
 
 class TestMemVectorDB(unittest.TestCase):
     @classmethod
@@ -106,12 +107,15 @@ class TestMemVectorDB(unittest.TestCase):
                 "key2": "value2"
             }
         }
-        self.client.insert_embeddings(
-            collection_name=collection_name, 
-            vector_id=embedding["id"], 
-            vector=embedding["vector"], 
-            metadata=embedding["metadata"]
-        )
+        try:
+            self.client.insert_embeddings(
+                collection_name=collection_name, 
+                vector_id=embedding["id"], 
+                vector=embedding["vector"], 
+                metadata=embedding["metadata"]
+            )
+        except JSONDecodeError as e:
+            self.fail(f"Failed to parse JSON response: {e}")
         embeddings = self.client.get_embeddings(collection_name)
         self.client.delete_collection(collection_name)
         self.assertEqual(1, len(embeddings))
@@ -142,13 +146,16 @@ class TestMemVectorDB(unittest.TestCase):
                 }
             }
         ]
-        for embedding in embeddings:
-            self.client.batch_insert_embeddings(
-                collection_name=collection_name, 
-                vector_id=embedding["id"], 
-                vector=embedding["vector"], 
-                metadata=embedding["metadata"]
-            )
+        try:
+            for embedding in embeddings:
+                self.client.batch_insert_embeddings(
+                    collection_name=collection_name, 
+                    vector_id=embedding["id"], 
+                    vector=embedding["vector"], 
+                    metadata=embedding["metadata"]
+                )
+        except JSONDecodeError as e:
+            self.fail(f"Failed to parse JSON response: {e}")
         k = 2
         query_vector = [0.32, 0.24, 0.55] 
         similar_vectors = self.client.query(
