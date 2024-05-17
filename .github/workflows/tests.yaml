@@ -20,8 +20,7 @@ jobs:
                 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt --no-cache-dir
-          pip install pytest einops lion-pytorch
+          pip install pytest einops lion-pytorch memvectordb-python
 
       - name: Pull Docker image
         run: docker pull kevkibe/memvectordb:latest
