@@ -27,7 +27,7 @@ jobs:
         run: docker pull kevkibe/memvectordb:latest
 
       - name: Run Docker container
-        run: docker run -p 8000:8000 kevkibe/memvectordb
+        run: docker run -d -p 8000:8000 kevkibe/memvectordb
 
       - name: Run Tests
         run: pytest
