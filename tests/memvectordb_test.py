@@ -7,9 +7,9 @@ class TestMemVectorDB(unittest.TestCase):
         cls.client = MemVectorDB(base_url="http://127.0.0.1:8000")
 
 
-    def test_create_collection(self):
+    def test_01_create_collection(self):
         """Test creating a collection."""
-        collection_name = "collection_name"
+        collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -17,9 +17,9 @@ class TestMemVectorDB(unittest.TestCase):
         self.client.delete_collection(collection_name)
         self.assertIn(expected_string, collection, f"Expected string not found in collection: {expected_string}")
 
-    def test_get_collection(self):
+    def test_02_get_collection(self):
         """Test getting a collection."""
-        collection_name = "collection_name"
+        collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -29,9 +29,9 @@ class TestMemVectorDB(unittest.TestCase):
         self.assertEqual(distance, inserted_data["distance"])
         self.assertEqual(0, len(inserted_data['embeddings']))
 
-    def test_insert_embeddings(self):
+    def test_03_insert_embeddings(self):
         """Test inserting embeddings into a collection."""
-        collection_name = "collection_name"
+        collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -55,9 +55,9 @@ class TestMemVectorDB(unittest.TestCase):
         self.assertEqual(distance, inserted_data["distance"])
         self.assertEqual(1, len(inserted_data['embeddings']))
 
-    def test_batch_insert_embeddings(self):
+    def test_04_batch_insert_embeddings(self):
         """Test batch inserting embeddings into a collection."""
-        collection_name = "collection_name"
+        collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -92,9 +92,9 @@ class TestMemVectorDB(unittest.TestCase):
         self.assertEqual(distance, inserted_data["distance"])
         self.assertEqual(2, len(inserted_data['embeddings']))
 
-    def test_get_embeddings(self):
+    def test_05_get_embeddings(self):
         """Test getting embeddings from a collection."""
-        collection_name = "collection_name"
+        collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -118,9 +118,9 @@ class TestMemVectorDB(unittest.TestCase):
         self.assertEqual(embedding['id'], embeddings[0]['id'])
         self.assertEqual(embedding['metadata'], embeddings[0]['metadata'])
 
-    def test_query(self):
+    def test_06_query(self):
         """Test querying similar vectors."""
-        collection_name = "collection_name"
+        collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
