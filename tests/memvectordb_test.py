@@ -11,5 +11,5 @@ class TestMemVectorDB(unittest.TestCase):
         dimension = 3
         distance = "cosine" 
         collection = self.client.create_collection(self.collection_name, dimension, distance)
-        expected_string = f"Successfully created collection: Collection {{ dimension: {dimension}, distance: {distance}, embeddings: [] }}"
+        expected_string = f'Collection created: "{self.collection_name}"'
         self.assertIn(expected_string, collection, f"Expected string not found in collection: {expected_string}")

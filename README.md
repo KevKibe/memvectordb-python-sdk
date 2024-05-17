@@ -100,5 +100,5 @@ query_vector = "query_vector"
 
 # example of query_vector: [0.32654, 0.24423, 0.7655] 
 # ensure the dimensions match the collection's dimensions
-client.get_similarity(collection_name, k, query_vector)
+client.query(collection_name, k, query_vector)
 ```
