@@ -136,7 +136,9 @@ class MemVectorDB:
     def update_collection(
         self, 
         collection_name: str, 
-        embeddings: List[Dict[str, Any]]
+        vector_id: int,
+        vector: List[float],
+        metadata: Optional[List[Dict]] = None
     ) -> str:
         """
         Update a collection with new embeddings.
@@ -148,9 +150,14 @@ class MemVectorDB:
         Returns:
             str: Status of the update operation.
         """
+        embeddings = {
+            "id": str(vector_id),
+            "vector": vector,
+            "metadata": [metadata]
+        }
         payload = {
             "collection_name": collection_name,
-            "embeddings": embeddings
+            "embeddings": [embeddings]
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/update_collection"
@@ -187,7 +194,7 @@ class MemVectorDB:
         else:
             return response_data
         
-    def get_similarity(
+    def query(
         self,
         k: int,
         collection_name: str,
