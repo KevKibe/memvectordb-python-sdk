@@ -1,0 +1,33 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' 
+                
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt --no-cache-dir
+          pip install pytest einops lion-pytorch
+
+      - name: Pull Docker image
+        run: docker pull kevkibe/memvectordb:latest
+
+      - name: Run Docker container
+        run: docker run -p 8000:8000 kevkibe/memvectordb
+
+      - name: Run Tests
+        run: pytest
