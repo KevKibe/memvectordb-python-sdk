@@ -133,7 +133,7 @@ class MemVectorDB:
         else:
             raise Exception(f"Failed to insert embedding: {response.status_code}")
         
-    def update_collection(
+    def batch_insert_embeddings(
         self, 
         collection_name: str, 
         vector_id: int,
@@ -153,7 +153,7 @@ class MemVectorDB:
         embeddings = {
             "id": str(vector_id),
             "vector": vector,
-            "metadata": [metadata]
+            "metadata": metadata
         }
         payload = {
             "collection_name": collection_name,
@@ -166,8 +166,8 @@ class MemVectorDB:
         if response.status_code == 200:
             return response_data
         else:
-            raise Exception(f"Failed to insert embedding: {response.status_code}")
-    
+            raise Exception(f"Failed to insert embedding: {response_data}")
+
     def get_embeddings(
         self, 
         collection_name: str
@@ -225,4 +225,3 @@ class MemVectorDB:
             return response_data
         else:
             return response_data
-    
