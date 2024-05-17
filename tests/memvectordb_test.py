@@ -3,7 +3,7 @@ from memvectordb.collection import MemVectorDB
 
 class TestMemVectorDB(unittest.TestCase):
     def setUp(self) -> None:
-        self.client = MemVectorDB(base_url="http://0.0.0.0:8000")
+        self.client = MemVectorDB(base_url="http://127.0.0.1:8000")
         self.collection_name = "test_collection_name"
         return super().setUp()
     
