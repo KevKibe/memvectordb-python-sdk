@@ -42,17 +42,21 @@ collection = client.delete_collection(collection_name)
 ```python
 
 collection_name = "collection_name"
-embedding = "embedding"
+embedding = {
+    "id": "1",
+    "vector": [0.14, 0.316, 0.433],
+    "metadata": {
+        "key1": "value1",
+        "key2": "value2"
+    }
+}
 
-# example of embedding : {
-#                          "id" : "1",
-#                          "vector" :[0.14, 0.316, 0.433], 
-#                          "metadata": {
-#                             "key1": "value1",
-#                             "key2": "value2"
-#                         }
-#                     }
-client.insert_embeddings(collection_name, embedding)
+client.insert_embeddings(
+    collection_name=collection_name, 
+    vector_id=embedding["id"], 
+    vector=embedding["vector"], 
+    metadata=embedding["metadata"]
+)
 ```
 
 ### To Insert Vectors(batch)
@@ -60,27 +64,32 @@ client.insert_embeddings(collection_name, embedding)
 ```python
 
 collection_name = "collection_name"
-embeddings = "embeddings"
+embeddings = [
+    {
+        "id": "1",
+        "vector": [0.14, 0.316, 0.433],
+        "metadata": {
+            "key1": "value1",
+            "key2": "value2"
+        }
+    },
+    {
+        "id": "2",
+        "vector": [0.27, 0.531, 0.621],
+        "metadata": {
+            "key1": "value3",
+            "key2": "value4"
+        }
+    }
+]
 
-# example of embeddings : [
-#         {
-#             "id": "1",
-#             "vector": [0.14, 0.316, 0.433],
-#             "metadata": {
-#                 "key1": "value1",
-#                 "key2": "value2"
-#             }
-#         },
-#         {
-#             "id": "2",
-#             "vector": [0.27, 0.531, 0.621],
-#             "metadata": {
-#                 "key1": "value3",
-#                 "key2": "value4"
-#             }
-#         }
-#     ]
-client.update_embeddings(collection_name, embeddings)
+for embedding in embeddings:
+    client.batch_insert_embeddings(
+        collection_name=collection_name, 
+        vector_id=embedding["id"], 
+        vector=embedding["vector"], 
+        metadata=embedding["metadata"]
+    )
 ```
 ## To Query Vectors.
 
@@ -90,6 +99,6 @@ collection_name = "collection_name"
 query_vector = "query_vector"
 
 # example of query_vector: [0.32654, 0.24423, 0.7655] 
-
-client.get_similarity(k, collection_name, query_vector)
+# ensure the dimensions match the collection's dimensions
+client.get_similarity(collection_name, k, query_vector)
 ```
