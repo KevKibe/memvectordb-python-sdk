@@ -163,7 +163,7 @@ class MemVectorDB:
             "embeddings": [embeddings]
         }
         headers = {"Content-Type": "application/json"}
-        url = f"{self.base_url}/update_collection"
+        url = f"{self.base_url}/batch_insert_embeddings"
         response = requests.post(url, json=payload, headers=headers)
         response_data = response.json()
         if response.status_code == 200:
