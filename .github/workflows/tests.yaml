@@ -17,16 +17,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11' 
-                
-      - name: Install dependencies
-        run: |
-          pip install pytest einops lion-pytorch memvectordb-python
 
       - name: Pull Docker image
         run: docker pull kevkibe/memvectordb:latest
 
       - name: Run Docker container
-        run: docker run -d -p 8000:8000 kevkibe/memvectordb
+        run: docker run -d -p 8000:8000 kevkibe/memvectordb 
+
+      - name: Install dependencies
+        run: |
+          pip install pytest einops lion-pytorch memvectordb-python
 
       - name: Run Tests
         run: pytest
