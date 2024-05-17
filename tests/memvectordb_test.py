@@ -9,7 +9,7 @@ class TestMemVectorDB(unittest.TestCase):
     
     def test_create_collection_method(self):
         dimension = 3
-        distance = "Cosine" 
+        distance = "cosine" 
         collection = self.client.create_collection(self.collection_name, dimension, distance)
         expected_string = f"Successfully created collection: Collection {{ dimension: {dimension}, distance: {distance}, embeddings: [] }}"
         self.assertIn(expected_string, collection, f"Expected string not found in collection: {expected_string}")
