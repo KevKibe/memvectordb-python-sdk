@@ -9,7 +9,7 @@ class TestMemVectorDB(unittest.TestCase):
 
     def test_create_collection(self):
         """Test creating a collection."""
-        collection_name = "test_collection_name"
+        collection_name = "collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -19,7 +19,7 @@ class TestMemVectorDB(unittest.TestCase):
 
     def test_get_collection(self):
         """Test getting a collection."""
-        collection_name = "test_collection_name"
+        collection_name = "collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -31,7 +31,7 @@ class TestMemVectorDB(unittest.TestCase):
 
     def test_insert_embeddings(self):
         """Test inserting embeddings into a collection."""
-        collection_name = "test_collection_name"
+        collection_name = "collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -57,7 +57,7 @@ class TestMemVectorDB(unittest.TestCase):
 
     def test_batch_insert_embeddings(self):
         """Test batch inserting embeddings into a collection."""
-        collection_name = "test_collection_name"
+        collection_name = "collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -94,7 +94,7 @@ class TestMemVectorDB(unittest.TestCase):
 
     def test_get_embeddings(self):
         """Test getting embeddings from a collection."""
-        collection_name = "test_collection_name"
+        collection_name = "collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
@@ -120,7 +120,7 @@ class TestMemVectorDB(unittest.TestCase):
 
     def test_query(self):
         """Test querying similar vectors."""
-        collection_name = "test_collection_name"
+        collection_name = "collection_name"
         distance = "cosine" 
         dimension = 3
         collection = self.client.create_collection(collection_name, dimension, distance)
