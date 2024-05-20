@@ -147,6 +147,29 @@ class MemVectorDB:
             embeddings (List[Dict[str, Any]]): List of dictionaries representing embeddings. 
                 Each dictionary should contain keys 'id' (int), 'vector' (List[float]), 
                 and optional 'metadata' (List[Dict[str, Any]]).
+        example: 
+                {
+                    "collection_name" : "test_collection_name",
+                    "embeddings" :
+                            [
+                            {
+                                "id": "1",
+                                "vector": [0.14, 0.316, 0.433],
+                                "metadata": {
+                                    "key1": "value1",
+                                    "key2": "value2"
+                                }
+                            },
+                            {
+                                "id": "2",
+                                "vector": [0.27, 0.531, 0.621],
+                                "metadata": {
+                                    "key1": "value3",
+                                    "key2": "value4"
+                                }
+                            }
+                        ]
+                }
 
         Returns:
             str: Status message indicating the success of the insertion operation.
