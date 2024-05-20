@@ -23,10 +23,7 @@ jobs:
           brew update
           brew install --cask docker
           open /Applications/Docker.app
-          while ! docker system info > /dev/null 2>&1; do
-            echo "Waiting for Docker to start..."
-            sleep 1
-          done
+          sleep 10
 
       - name: Pull Docker image
         run: docker pull --platform linux/amd64 kevkibe/memvectordb:latest
