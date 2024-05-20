@@ -6,8 +6,12 @@ on:
       - main
 
 jobs:
-  test_ubuntu:
-    runs-on: ubuntu-latest
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout repository
@@ -18,45 +22,11 @@ jobs:
         with:
           python-version: '3.11' 
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt --no-cache-dir
-          pip install pytest einops lion-pytorch 
+      - name: Pull Docker image
+        run: docker pull kevkibe/memvectordb:latest
 
-      - name: Run Tests
-        run: pytest
-
-  test_macos:
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11' 
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt --no-cache-dir
-          pip install pytest einops lion-pytorch 
-
-      - name: Run Tests
-        run: pytest
-
-  test_windows:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'
+      - name: Run Docker container
+        run: docker run -d -p 8000:8000 kevkibe/memvectordb 
 
       - name: Install dependencies
         run: |
