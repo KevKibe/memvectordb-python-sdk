@@ -4,8 +4,8 @@ from json.decoder import JSONDecodeError
 
 class TestMemVectorDB(unittest.TestCase):
     @classmethod
-    def setUpClass(cls) -> None:
-        cls.client = MemVectorDB(base_url="http://127.0.0.1:8000")
+    def setUpClass(self) -> None:
+        self.client = MemVectorDB(base_url="http://127.0.0.1:8000")
 
 
     def test_01_create_collection(self):
@@ -81,8 +81,8 @@ class TestMemVectorDB(unittest.TestCase):
             }
         ]
         self.client.batch_insert_embeddings(
-                collection_name=collection_name, 
-                embeddings=embeddings 
+            collection_name, 
+            embeddings 
             )
         inserted_data = self.client.get_collection(collection_name)
         self.client.delete_collection(collection_name)
@@ -145,8 +145,8 @@ class TestMemVectorDB(unittest.TestCase):
         ]
         
         self.client.batch_insert_embeddings(
-                collection_name=collection_name, 
-                embeddings=embeddings 
+            collection_name, 
+            embeddings 
             )
 
         query_vector = [0.32, 0.24, 0.55] 
