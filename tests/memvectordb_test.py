@@ -23,7 +23,7 @@ class TestMemVectorDB(unittest.TestCase):
         collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
-        collection = self.client.create_collection(collection_name, dimension, distance)
+        self.client.create_collection(collection_name, dimension, distance)
         inserted_data = self.client.get_collection(collection_name)
         self.client.delete_collection(collection_name)
         self.assertEqual(dimension, inserted_data["dimension"])
@@ -35,7 +35,7 @@ class TestMemVectorDB(unittest.TestCase):
         collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
-        collection = self.client.create_collection(collection_name, dimension, distance)
+        self.client.create_collection(collection_name, dimension, distance)
         embedding = {
             "id": "1",
             "vector": [0.14, 0.316, 0.433],
@@ -61,7 +61,7 @@ class TestMemVectorDB(unittest.TestCase):
         collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
-        collection = self.client.create_collection(collection_name, dimension, distance)
+        self.client.create_collection(collection_name, dimension, distance)
         embeddings = [
             {
                 "id": "1",
@@ -95,7 +95,7 @@ class TestMemVectorDB(unittest.TestCase):
         collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
-        collection = self.client.create_collection(collection_name, dimension, distance)
+        self.client.create_collection(collection_name, dimension, distance)
         embedding = {
             "id": "1",
             "vector": [0.14, 0.316, 0.433],
@@ -124,7 +124,7 @@ class TestMemVectorDB(unittest.TestCase):
         collection_name = "test_collection_name"
         distance = "cosine" 
         dimension = 3
-        collection = self.client.create_collection(collection_name, dimension, distance)
+        self.client.create_collection(collection_name, dimension, distance)
         embeddings = [
             {
                 "id": "1",
