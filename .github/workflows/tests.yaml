@@ -23,10 +23,10 @@ jobs:
           python-version: '3.11' 
 
       - name: Pull Docker image
-        run: docker pull kevkibe/memvectordb:latest
+        run: docker pull -platform linux/amd64 kevkibe/memvectordb:latest
 
       - name: Run Docker container
-        run: docker run -d -p 8000:8000 kevkibe/memvectordb 
+        run: docker run -d -platform linux/amd64 -p 8000:8000 kevkibe/memvectordb 
 
       - name: Install dependencies
         run: |
