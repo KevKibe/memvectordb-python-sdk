@@ -1,4 +1,4 @@
-name: Tests
+name: MacOS Tests
 
 on:
   push:
@@ -6,12 +6,8 @@ on:
       - main
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-
-    runs-on: ${{ matrix.os }}
+  test-macos:
+    runs-on: macos-latest
 
     steps:
       - name: Checkout repository
@@ -22,8 +18,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Docker on macOS
-        if: runner.os == 'macOS'
+      - name: Install Docker
         run: |
           brew update
           brew install --cask docker
