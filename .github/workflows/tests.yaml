@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pytest einops lion-pytorch memvectordb-python
+          pip install pytest einops lion-pytorch 
 
       - name: Run Tests
         run: pytest
