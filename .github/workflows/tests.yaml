@@ -18,12 +18,6 @@ jobs:
         with:
           python-version: '3.11' 
 
-      - name: Pull Docker image
-        run: docker pull kevkibe/memvectordb:latest
-
-      - name: Run Docker container
-        run: docker run -d -p 8000:8000 kevkibe/memvectordb 
-
       - name: Install dependencies
         run: |
           pip install -r requirements.txt --no-cache-dir
@@ -44,12 +38,6 @@ jobs:
         with:
           python-version: '3.11' 
 
-      - name: Pull Docker image
-        run: docker pull kevkibe/memvectordb:latest
-
-      - name: Run Docker container
-        run: docker run -d -p 8000:8000 kevkibe/memvectordb 
-
       - name: Install dependencies
         run: |
           pip install -r requirements.txt --no-cache-dir
@@ -58,26 +46,17 @@ jobs:
       - name: Run Tests
         run: pytest
 
-  test_merge:
-    runs-on: ubuntu-latest
-    needs: [test_ubuntu, test_macos]
+  test_windows:
+    runs-on: windows-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Merge branches
-        run: git merge ${{ github.event.pull_request.head.ref }}
-
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.11' 
-
-      - name: Pull Docker image
-        run: docker pull kevkibe/memvectordb:latest
-
-      - name: Run Docker container
-        run: docker run -d -p 8000:8000 kevkibe/memvectordb 
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
