@@ -137,30 +137,23 @@ class MemVectorDB:
     def batch_insert_embeddings(
         self, 
         collection_name: str, 
-        vector_id: int,
-        vector: List[float],
-        metadata: Optional[List[Dict]] = None
+        embeddings: List[Dict[str, Any]]
     ) -> str:
         """
-        This method inserts a batch of embeddings into a specified collection.
+        Insert a batch of embeddings into a specified collection.
 
         Args:
             collection_name (str): The name of the collection to insert the embeddings into.
-            vector_id (int): The unique identifier for the vector.
-            vector (List[float]): The vector to be inserted.
-            metadata (Optional[List[Dict]]): Additional metadata associated with the vector.
+            embeddings (List[Dict[str, Any]]): List of dictionaries representing embeddings. 
+                Each dictionary should contain keys 'id' (int), 'vector' (List[float]), 
+                and optional 'metadata' (List[Dict[str, Any]]).
 
         Returns:
-            str: Status of the insertion operation.
+            str: Status message indicating the success of the insertion operation.
         """
-        embeddings = {
-            "id": str(vector_id),
-            "vector": vector,
-            "metadata": metadata
-        }
         payload = {
             "collection_name": collection_name,
-            "embeddings": [embeddings]
+            "embeddings": embeddings
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/batch_insert_embeddings"

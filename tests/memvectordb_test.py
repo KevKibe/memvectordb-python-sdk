@@ -80,12 +80,9 @@ class TestMemVectorDB(unittest.TestCase):
                 }
             }
         ]
-        for embedding in embeddings:
-            self.client.batch_insert_embeddings(
+        self.client.batch_insert_embeddings(
                 collection_name=collection_name, 
-                vector_id=embedding["id"], 
-                vector=embedding["vector"], 
-                metadata=embedding["metadata"]
+                embeddings=embeddings 
             )
         inserted_data = self.client.get_collection(collection_name)
         self.client.delete_collection(collection_name)
@@ -146,17 +143,12 @@ class TestMemVectorDB(unittest.TestCase):
                 }
             }
         ]
-        try:
-            for embedding in embeddings:
-                self.client.batch_insert_embeddings(
-                    collection_name=collection_name, 
-                    vector_id=embedding["id"], 
-                    vector=embedding["vector"], 
-                    metadata=embedding["metadata"]
-                )
-        except JSONDecodeError as e:
-            self.fail(f"Failed to parse JSON response: {e}")
-        k = 2
+        
+        self.client.batch_insert_embeddings(
+                collection_name=collection_name, 
+                embeddings=embeddings 
+            )
+
         query_vector = [0.32, 0.24, 0.55] 
         similar_vectors = self.client.query(
             collection_name = collection_name,
