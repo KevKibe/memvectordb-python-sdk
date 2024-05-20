@@ -83,12 +83,9 @@ embeddings = [
     }
 ]
 
-for embedding in embeddings:
-    client.batch_insert_embeddings(
+client.batch_insert_embeddings(
         collection_name=collection_name, 
-        vector_id=embedding["id"], 
-        vector=embedding["vector"], 
-        metadata=embedding["metadata"]
+        embeddings = embeddings
     )
 ```
 ## To Query Vectors.
