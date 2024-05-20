@@ -1,12 +1,10 @@
-name: Linux Tests
+name: MemVectorDB Tests
 
-on:
-  push:
-    branches:
-      - main
+on: [pull_request]
+
 
 jobs:
-  test-ubuntu:
+  test:
     runs-on: ubuntu-latest
 
     steps:
