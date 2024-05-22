@@ -63,7 +63,7 @@ class MemVectorDB:
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/get_collection"
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.get(url, json=payload, headers=headers)
 
         response_data = response.json()
         if response.status_code == 200:
@@ -89,7 +89,7 @@ class MemVectorDB:
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/delete_collection"
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.delete(url, json=payload, headers=headers)
 
         response_data = response.json()
         if response.status_code == 200:
@@ -127,7 +127,7 @@ class MemVectorDB:
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/insert_embeddings"
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.put(url, json=payload, headers=headers)
         response_data = response.json()
         if response.status_code == 200:
             return response_data
@@ -180,7 +180,7 @@ class MemVectorDB:
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/batch_insert_embeddings"
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.put(url, json=payload, headers=headers)
         response_data = response.json()
         if response.status_code == 200:
             return response_data
@@ -205,7 +205,7 @@ class MemVectorDB:
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/get_embeddings"
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.get(url, json=payload, headers=headers)
 
         response_data = response.json()
         if response.status_code == 200:
@@ -237,7 +237,7 @@ class MemVectorDB:
         }
         headers = {"Content-Type": "application/json"}
         url = f"{self.base_url}/get_similarity"
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.get(url, json=payload, headers=headers)
 
         response_data = response.json()
         if response.status_code == 200:
