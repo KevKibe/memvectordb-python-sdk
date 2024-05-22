@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "memvectordb-python"
-version = "0.0.3"
+version = "0.0.4"
 description = "memvectordb python client."
 authors = ["Kevin Kibe <keviinkibe@gmail.com>"]
 license = "MIT"
