@@ -116,6 +116,8 @@ class MemVectorDB:
         Returns:
             str: Status of the insertion operation.
         """
+        if metadata:
+            metadata = {str(key): str(value) for key, value in metadata.items()}
         embedding = {
             "id": str(vector_id),
             "vector": vector,
@@ -132,7 +134,7 @@ class MemVectorDB:
         if response.status_code == 200:
             return response_data
         else:
-            raise Exception(f"Failed to insert embedding: {response.status_code}")
+            return f"Failed to insert embedding: {response_data}"
         
     def batch_insert_embeddings(
         self, 
@@ -174,6 +176,9 @@ class MemVectorDB:
         Returns:
             str: Status message indicating the success of the insertion operation.
         """
+        for emb in embeddings:
+                if emb.get("metadata"):
+                    emb["metadata"] = {str(key): str(value) for key, value in emb["metadata"].items()}
         payload = {
             "collection_name": collection_name,
             "embeddings": embeddings
