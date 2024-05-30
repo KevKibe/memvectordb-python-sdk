@@ -28,4 +28,6 @@ jobs:
           pip install pytest einops lion-pytorch
 
       - name: Run Tests
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: pytest
