@@ -19,6 +19,8 @@ class TestMemVectorDBVectorStore(unittest.TestCase):
         else:
             self.dimension = 1536
         self.openai_api_key = os.environ.get('OPENAI_API_KEY')
+        if not self.openai_api_key:
+            raise ValueError("OPENAI_API_KEY environment variable is not set.")
         self.client = MemVectorDBVectorStore(base_url, self.embedding_model, self.openai_api_key)
     
     def test_01_create_collection(self):
