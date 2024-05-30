@@ -1,6 +1,5 @@
 import unittest
 from memvectordb.memvectordb_openai import MemVectorDBVectorStore
-from json.decoder import JSONDecodeError
 from langchain_community.document_loaders import PyPDFLoader
 from pathlib import Path
 from openai import OpenAI
