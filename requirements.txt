@@ -3,3 +3,4 @@ openai==1.30.5
 langchain_community==0.0.38
 pypdf==4.2.0
 langchain-text-splitters==0.0.2
+python-dotenv==1.0.1

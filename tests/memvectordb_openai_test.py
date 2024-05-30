@@ -4,6 +4,8 @@ from langchain_community.document_loaders import PyPDFLoader
 from pathlib import Path
 from openai import OpenAI
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class TestMemVectorDBVectorStore(unittest.TestCase):
     @classmethod
