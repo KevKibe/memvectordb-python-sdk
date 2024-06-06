@@ -119,7 +119,9 @@ class MemVectorDB:
         if metadata:
             metadata = {str(key): str(value) for key, value in metadata.items()}
         embedding = {
-            "id": str(vector_id),
+            "id": {
+                "unique_id": vector_id
+            },
             "vector": vector,
             "metadata": metadata
         }

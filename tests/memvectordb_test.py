@@ -37,7 +37,9 @@ class TestMemVectorDB(unittest.TestCase):
         dimension = 3
         self.client.create_collection(collection_name, dimension, distance)
         embedding = {
-            "id": "1",
+            "id": {
+                "unique_id": "1"
+            },
             "vector": [0.14, 0.316, 0.433],
             "metadata": {
                 "key1": "value1",
@@ -46,7 +48,7 @@ class TestMemVectorDB(unittest.TestCase):
         }
         self.client.insert_embeddings(
             collection_name=collection_name, 
-            vector_id=embedding["id"], 
+            vector_id=embedding["id"]['unique_id'], 
             vector=embedding["vector"], 
             metadata=embedding["metadata"]
         )
@@ -64,7 +66,9 @@ class TestMemVectorDB(unittest.TestCase):
         self.client.create_collection(collection_name, dimension, distance)
         embeddings = [
             {
-                "id": "1",
+                "id": {
+                    "unique_id": "1"
+                },
                 "vector": [0.14, 0.316, 0.433],
                 "metadata": {
                     "key1": "value1",
@@ -72,7 +76,9 @@ class TestMemVectorDB(unittest.TestCase):
                 }
             },
             {
-                "id": "2",
+                "id": {
+                    "unique_id": "4"
+                },
                 "vector": [0.27, 0.531, 0.621],
                 "metadata": {
                     "key1": "value3",
@@ -97,7 +103,9 @@ class TestMemVectorDB(unittest.TestCase):
         dimension = 3
         self.client.create_collection(collection_name, dimension, distance)
         embedding = {
-            "id": "1",
+            "id": {
+                "unique_id": "1"
+            },
             "vector": [0.14, 0.316, 0.433],
             "metadata": {
                 "key1": "value1",
@@ -107,7 +115,7 @@ class TestMemVectorDB(unittest.TestCase):
         try:
             self.client.insert_embeddings(
                 collection_name=collection_name, 
-                vector_id=embedding["id"], 
+                vector_id=embedding["id"]['unique_id'], 
                 vector=embedding["vector"], 
                 metadata=embedding["metadata"]
             )
@@ -116,7 +124,7 @@ class TestMemVectorDB(unittest.TestCase):
         embeddings = self.client.get_embeddings(collection_name)
         self.client.delete_collection(collection_name)
         self.assertEqual(1, len(embeddings))
-        self.assertEqual(embedding['id'], embeddings[0]['id'])
+        self.assertEqual(embedding['id']['unique_id'], embeddings[0]['id']['unique_id'])
         self.assertEqual(embedding['metadata'], embeddings[0]['metadata'])
 
     def test_06_query(self):
@@ -127,7 +135,9 @@ class TestMemVectorDB(unittest.TestCase):
         self.client.create_collection(collection_name, dimension, distance)
         embeddings = [
             {
-                "id": "1",
+                "id": {
+                    "unique_id": "1"
+                },
                 "vector": [0.14, 0.316, 0.433],
                 "metadata": {
                     "key1": "value1",
@@ -135,7 +145,9 @@ class TestMemVectorDB(unittest.TestCase):
                 }
             },
             {
-                "id": "2",
+                "id": {
+                    "unique_id": "4"
+                },
                 "vector": [0.27, 0.531, 0.621],
                 "metadata": {
                     "key1": "value3",

@@ -43,17 +43,18 @@ collection = client.delete_collection(collection_name)
 
 collection_name = "collection_name"
 embedding = {
-    "id": "1",
+    "id": {
+        "unique_id": "1"
+    },
     "vector": [0.14, 0.316, 0.433],
     "metadata": {
         "key1": "value1",
         "key2": "value2"
     }
 }
-
 client.insert_embeddings(
     collection_name=collection_name, 
-    vector_id=embedding["id"], 
+    vector_id=embedding["id"]['unique_id'], 
     vector=embedding["vector"], 
     metadata=embedding["metadata"]
 )
@@ -66,7 +67,9 @@ client.insert_embeddings(
 collection_name = "collection_name"
 embeddings = [
     {
-        "id": "1",
+        "id": {
+            "unique_id": "0"
+        },
         "vector": [0.14, 0.316, 0.433],
         "metadata": {
             "key1": "value1",
@@ -74,7 +77,19 @@ embeddings = [
         }
     },
     {
-        "id": "2",
+        "id": {
+            "unique_id": "1"
+        },
+        "vector": [0.27, 0.531, 0.621],
+        "metadata": {
+            "key1": "value3",
+            "key2": "value4"
+        }
+    },
+    {
+        "id": {
+            "unique_id": "2"
+        },
         "vector": [0.27, 0.531, 0.621],
         "metadata": {
             "key1": "value3",
