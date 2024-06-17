@@ -3,6 +3,7 @@ from memvectordb.vectorstore import MemVectorDBVectorStore
 from langchain_community.document_loaders import PyPDFLoader
 from pathlib import Path
 
+
 class TestMemVectorDBVectorStore(unittest.TestCase):
     @classmethod
     def setUpClass(self) -> None:
