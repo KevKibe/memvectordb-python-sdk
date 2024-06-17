@@ -2,7 +2,6 @@ import unittest
 from memvectordb.vectorstore import MemVectorDBVectorStore
 from langchain_community.document_loaders import PyPDFLoader
 from pathlib import Path
-from openai import OpenAI
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -15,7 +14,7 @@ class TestMemVectorDBVectorStore(unittest.TestCase):
         self.distance = "cosine"
         self.embedding_model = "text-embedding-3-small"
         self.embedding_provider = "openai"
-        self.api_key = os.environ.get('OPENAI_API_KEY')
+        self.api_key=os.getenv("OPENAI_API_KEY")
         self.client = MemVectorDBVectorStore(base_url, self.embedding_provider, self.embedding_model, self.api_key)
     
     def dimensions(self):
