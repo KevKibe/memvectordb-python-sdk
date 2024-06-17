@@ -13,6 +13,11 @@ packages = [
 
 [tool.poetry.dependencies]
 requests = "2.31.0"
+openai="1.30.5"
+langchain_community="0.0.38"
+pypdf="4.2.0"
+langchain-text-splitters="0.0.2"
+python-dotenv="1.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
