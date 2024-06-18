@@ -1,0 +1,81 @@
+site_name: MemVectorDB Python SDK
+site_description: memvectorDB python SDK.
+
+repo_url: https://github.com/KevKibe/memvectordb-python-sdk
+repo_name: KevKibe/memvectordb-python-sdk
+edit_uri: edit/master/DOCS
+
+theme:
+   name: 'material'
+  #  logo: logo_image.ico
+  #  favicon: logo_image.ico
+
+   language: en
+   palette:
+     - scheme: default
+       toggle:
+         icon: material/toggle-switch-off-outline 
+         name: Switch to dark mode
+       primary: grey
+       accent: blue 
+     - scheme: slate 
+       toggle:
+         icon: material/toggle-switch
+         name: Switch to light mode    
+       primary: grey
+       accent: blue
+
+plugins:
+  - blog:
+      blog_dir: blog
+      post_url_format: "{slug}"
+      blog_toc: true
+  - social:
+      cards_layout_options:
+        background_color: "black"
+        color: "#FFFFFF"
+        font_family: "Roboto"
+  - glightbox
+
+nav:
+ - Home: index.md
+ - Using Requests: requests_docs.md
+
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - attr_list
+  - md_in_html
+
+#   - mdx_math:
+#       enable_dollar_delimiter: true
+  - toc:
+      permalink: true
+      separator: "_"
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+# Customization
+extra_javascript:
+  - "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"
+extra_css:
+  - "assets/css/custom.css"
+extra:
+  manifest: "manifest.json"
