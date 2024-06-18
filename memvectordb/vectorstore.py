@@ -3,20 +3,44 @@ from .collection import MemVectorDB
 import uuid
 from tqdm import tqdm
 from typing import List, Any, Dict
+from sentence_transformers import SentenceTransformer
 
 class MemVectorDBVectorStore:
     def __init__(
         self,
         base_url: str,
+        embedding_provider: str,
         embedding_model: str,
-        openai_api_key: str
+        api_key: str = None
         ) -> None:
         self.client = MemVectorDB(
             base_url=base_url
             )
         self.embedding_model=embedding_model
-        self.openai_client = OpenAI(api_key=openai_api_key)
+        self.embedding_provider=embedding_provider
+        self.api_key = api_key
         pass
+
+    def initialize_embedding_model_client(self):
+        """Initializes a client for generating text embeddings.
+
+        This method creates a client object based on the configured embedding provider.
+
+        Supported Providers:
+
+        * `openai`: Uses the OpenAI API (requires an API key).
+        * `sentence_transformers`: Uses the SentenceTransformer library (requires a pre-trained embedding model).
+
+        Returns:
+
+        A client object for generating text embeddings. The specific type of client
+        will depend on the chosen provider.
+        """
+        if self.embedding_provider == "openai":
+            client = OpenAI(api_key=self.api_key)
+        elif self.embedding_provider == "sentence_transformers":
+            client = SentenceTransformer(self.embedding_model)
+        return client
     
     def create_collection(
         self,
@@ -35,8 +59,10 @@ class MemVectorDBVectorStore:
         """
         if self.embedding_model=="text-embedding-3-large":
             dimension = 1024
-        else:
+        elif self.embedding_model=="text-embedding-3-small":
             dimension = 1536
+        elif self.embedding_model=="multi-qa-MiniLM-L6-cos-v1":
+            dimension = 384
         return self.client.create_collection(
             collection_name=collection_name,
             dimension=dimension,
@@ -57,10 +83,37 @@ class MemVectorDBVectorStore:
         """
         return self.client.get_collection(collection_name=collection_name)
     
+    def embed(
+        self,
+        text,
+        embedding_model_client,
+    ):
+        """
+        Embeds the given text using the specified embedding model client.
+
+        Args:
+            text (str): The input text to embed.
+            embedding_model_client: An instance of the embedding model client.
+
+        Returns:
+            numpy.ndarray: The embeddings of the input text as a NumPy array.
+        """
+        if self.embedding_provider=="openai":
+            embeddings = embedding_model_client.embeddings.create(
+                input=text,
+                model=self.embedding_model
+                )
+            embeddings = embeddings.data[0].embedding
+        elif self.embedding_provider=="sentence_transformers":
+            embeddings = embedding_model_client.encode(text)
+            embeddings = embeddings.tolist()
+        return embeddings
+    
     def add_texts(
         self,
         collection_name: str,
         text: str,
+        embedding_model_client
         ) -> str:
         """
         Adds a single text to the specified collection.
@@ -73,21 +126,19 @@ class MemVectorDBVectorStore:
             str: Status message indicating the success of the operation.
         """
         vector_id = str(uuid.uuid4())
-        embeddings = self.openai_client.embeddings.create(
-            input=text,
-            model=self.embedding_model
-            )
+        embeddings = self.embed(text, embedding_model_client)
         return self.client.insert_embeddings(
             collection_name=collection_name,
             vector_id=vector_id,
-            vector=embeddings.data[0].embedding,
+            vector=embeddings,
             metadata={"text": text}
         )
-    
+        
     def add_documents(
         self,
         collection_name: str,
         documents: list,
+        embedding_model_client,
         streaming: bool
     ) -> str:
         """
@@ -105,10 +156,7 @@ class MemVectorDBVectorStore:
             if streaming:
                 for page in tqdm(documents, desc="Adding documents"):
                     try:
-                        embeddings = self.openai_client.embeddings.create(
-                            input=page.page_content,
-                            model=self.embedding_model
-                        )
+                        embeddings = self.embed(page.page_content, embedding_model_client)
                         vector_id = str(uuid.uuid4())
                         metadata = page.metadata
                         metadata["text"] = page.page_content
@@ -116,7 +164,7 @@ class MemVectorDBVectorStore:
                         self.client.insert_embeddings(
                             collection_name=collection_name,
                             vector_id=vector_id,
-                            vector=embeddings.data[0].embedding,
+                            vector=embeddings,
                             metadata=metadata
                         )
                     except Exception as e:
@@ -125,16 +173,13 @@ class MemVectorDBVectorStore:
             else:
                 doc_embeddings = []
                 for page in documents:
-                    embeddings = self.openai_client.embeddings.create(
-                        input=page.page_content,
-                        model=self.embedding_model
-                    )
+                    embeddings = self.embed(page.page_content, embedding_model_client)
                     metadata = page.metadata
                     metadata["text"] = page.page_content
 
                     doc_embeddings.append({
                         "id": str(uuid.uuid4()),
-                        "vector": embeddings.data[0].embedding,
+                        "vector": embeddings,
                         "metadata": metadata
                     })
 
