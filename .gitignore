@@ -3,3 +3,4 @@ venv
 */.env
 Docs/blog
 .cache
+site
