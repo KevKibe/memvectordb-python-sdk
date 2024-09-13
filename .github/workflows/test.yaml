@@ -20,7 +20,7 @@ jobs:
         run: docker pull --platform linux/amd64 kevkibe/memvectordb:v2.1.0
 
       - name: Run Docker container
-        run: docker run --rm --platform linux/amd64 -p 8000:8000 -v /var/memvectordb:/memvectordb kevkibe/memvectordb:v2.1.0
+        run: docker run -d --rm --platform linux/amd64 -p 8000:8000 -v /var/memvectordb:/memvectordb kevkibe/memvectordb:v2.1.0
 
       - name: Install dependencies
         run: |
